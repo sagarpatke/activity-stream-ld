@@ -15,7 +15,7 @@ describe('Create Activity', function() {
       const object = new AS_Link('wave18', 'http://profile.com/calendar-link');
       const context = new AS_Link('Calendar', 'http://tools.com/tools/calendar');
 
-      const createActivity = new AS_CreateActivity(actor, object, target, context);
+      const createActivity = new AS_CreateActivity( actor, object, target, context);
 
       const activityJSON = createActivity.json;
 
@@ -23,16 +23,21 @@ describe('Create Activity', function() {
         activityJSON.should.have.property('type');
         activityJSON.type.should.be.equal('Create');
       });
+       
+      it('should have an id',function(){
+         activityJSON.should.have.property('id');
+         activityJSON.id.should.be.equal('27d13830-5efa-4fec-9317-abe2e444d9c6');
+       });
 
       it('should have an @context', function() {
         activityJSON.should.have.property('@context');
         activityJSON['@context'].should.be.equal('https://www.w3.org/ns/activitystreams');
       });
 
-      /*it('should have a name', function() {
+      it('should have a name', function() {
         activityJSON.should.have.property('name');
         activityJSON.name.should.be.equal('Anis has created a new calendar wave18 for Stackroute');
-      });*/
+      });
 
       it('should have a target', function() {
         activityJSON.should.have.property('target');
@@ -78,7 +83,9 @@ describe('Create Activity', function() {
     describe('Parsing', function() {
       const activityJSON = {
         "@context": 'http://avatar.com/group/stackroute',
+        id:'27d13830-5efa-4fec-9317-abe2e444d9c6',
         type: 'Create',
+        name: 'Anis has created a new calendar wave18 for Stackroute',
         actor: {
           type: 'Link',
           name: 'Anis',
@@ -109,6 +116,14 @@ describe('Create Activity', function() {
 
       it('should be of type Create', function() {
         activity.type.should.be.equal('Create');
+      });
+
+      it('should have an id', function() {
+        activity.id.should.be.equal('27d13830-5efa-4fec-9317-abe2e444d9c6');
+      });
+
+      it('should have a name', function() {
+        activity.name.should.be.equal('Anis has created a new calendar wave18 for Stackroute');
       });
 
       it('should have an @context', function() {
